@@ -1,7 +1,11 @@
 # Class Example
 
 import tkinter as tk
+from tkinter import ttk
+from tkinter.constants import NO
+
 #from PIL import Image, ImageTk
+
 import dbFunctions as db
 
 def getFormInformation(connObj):
@@ -45,7 +49,7 @@ else:
 
 root  = tk.Tk()
 
-root.geometry("{}x{}".format(250,250))
+root.geometry("{}x{}".format(620,500))
 
 root.title('Example Form')
 
@@ -82,5 +86,25 @@ ent_PhoneNumber.grid(row=2, column=1, sticky='w', padx=5, pady=5)
 btn_Submit.grid(row=3, sticky='n', columnspan=2, padx=5, pady=5)
 
 # lbl_Image.grid(row=5, columnspan=2, padx=5, pady=5)
+
+# Code for treeview widget
+columns = '1', '2', '3', '4'
+
+tree = ttk.Treeview(root, columns=columns, show='headings')
+
+tree.heading('1', text='PersonID')
+tree.column('1', minwidth=0, width=100, stretch=NO)
+
+tree.heading('2', text='First Name')
+tree.column('2', minwidth=0, width=120, stretch=NO)
+
+tree.heading('3', text='Last Name')
+tree.column('3', minwidth=0, width=120, stretch=NO)
+
+tree.heading('4', text='Phone Number')
+tree.column('4', minwidth=0, width=100, stretch=NO)
+
+tree.grid(row=4, sticky='n', columnspan=2, padx=5, pady=5)
+
 
 root.mainloop()
