@@ -17,13 +17,21 @@ def updateTreeView(connObj):
     for user in users:
         tree.insert('',tk.END, values=(user[0],user[2], user[1], user[3]))
 
-def item_selected(event):
+def item_selected():
+    treeItems = list()
     for selected_item in tree.selection():
         item = tree.item(selected_item)
-        print(item)
+        treeItems.append(item['values'])
+
+    return treeItems
 
 def deleteUserFromDB(connObj):
-    pass
+    selectedItems = item_selected()
+
+    for record in selectedItems:
+        db.deleteUser(connObj, record[0])
+
+    updateTreeView(connObj)
 
 def updateUserOnDB(connObj):
     pass
@@ -137,7 +145,7 @@ tree.column('3', minwidth=0, width=120, stretch=NO)
 tree.heading('4', text='Phone Number')
 tree.column('4', minwidth=0, width=100, stretch=NO)
 
-tree.bind('<<TreeviewSelect>>', item_selected)
+#tree.bind('<<TreeviewSelect>>', item_selected)
 
 updateTreeView(connObj)
 
