@@ -3,6 +3,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.constants import NO
+from typing import Counter
 
 #from PIL import Image, ImageTk
 
@@ -16,6 +17,11 @@ def updateTreeView(connObj):
     for user in users:
         tree.insert('',tk.END, values=(user[0],user[2], user[1], user[3]))
 
+def deleteUserFromDB(connObj):
+    pass
+
+def updateUserOnDB(connObj):
+    pass
 
 def getFormInformation(connObj):
     
@@ -67,7 +73,7 @@ else:
 
 root  = tk.Tk()
 
-root.geometry("{}x{}".format(620,500))
+root.geometry("{}x{}".format(455, 350))
 
 root.title('Example Form')
 
@@ -91,6 +97,8 @@ lbl_PhoneNumber = tk.Label(text="Phone Number", master=root)
 ent_PhoneNumber = tk.Entry(master=root)
 
 btn_Submit = tk.Button(text="Submit", relief=tk.RAISED, command= lambda: getFormInformation(connObj))
+btn_Delete = tk.Button(text="Delete", relief=tk.RAISED, command= lambda: deleteUserFromDB(connObj))
+btn_Update = tk.Button(text="Update", relief=tk.RAISED, command= lambda: updateUserOnDB(connObj))
 
 lbl_FirstName.grid(row=0, column=0, sticky='w', padx=5, pady=5)
 ent_FirstName.grid(row=0, column=1, sticky='w', padx=5, pady=5)
@@ -101,7 +109,9 @@ ent_LastName.grid(row=1, column=1, sticky='w', padx=5, pady=5)
 lbl_PhoneNumber.grid(row=2, column=0, sticky='w', padx=5, pady=5)
 ent_PhoneNumber.grid(row=2, column=1, sticky='w', padx=5, pady=5)
 
-btn_Submit.grid(row=3, sticky='n', columnspan=2, padx=5, pady=5)
+btn_Submit.grid(row=0, column=3, sticky='w', columnspan=1, padx=5, pady=5)
+btn_Delete.grid(row=1, column=3,sticky='w', columnspan=1, padx=5, pady=5)
+btn_Update.grid(row=2, column=3,sticky='w', columnspan=1, padx=5, pady=5)
 
 # lbl_Image.grid(row=5, columnspan=2, padx=5, pady=5)
 
@@ -124,7 +134,7 @@ tree.column('4', minwidth=0, width=100, stretch=NO)
 
 updateTreeView(connObj)
 
-tree.grid(row=4, sticky='n', columnspan=2, padx=5, pady=5)
+tree.grid(row=4, sticky='n', columnspan=4, padx=5, pady=5)
 
 
 root.mainloop()
