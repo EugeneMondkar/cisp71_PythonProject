@@ -27,14 +27,31 @@ def item_selected():
 
 def deleteUserFromDB(connObj):
     selectedItems = item_selected()
+    if len(selectedItems) > 0:
+        for record in selectedItems:
+            db.deleteUser(connObj, record[0])
 
-    for record in selectedItems:
-        db.deleteUser(connObj, record[0])
-
-    updateTreeView(connObj)
+        updateTreeView(connObj)
 
 def updateUserOnDB(connObj):
-    pass
+    selectedItems = item_selected()
+    if len(selectedItems) > 0:
+        itemToUpdate = selectedItems[-1]
+
+        firstName = ent_FirstName.get()
+        lastName = ent_LastName.get()
+        phoneNumber = ent_PhoneNumber.get()
+
+        ent_FirstName.delete(0,tk.END)
+        ent_LastName.delete(0,tk.END)
+        ent_PhoneNumber.delete(0,tk.END)
+
+        values = lastName, firstName, phoneNumber, itemToUpdate[0]
+
+        db.updateUser(connObj, values)
+    
+    updateTreeView(connObj)
+
 
 def getFormInformation(connObj):
     
@@ -144,8 +161,6 @@ tree.column('3', minwidth=0, width=120, stretch=NO)
 
 tree.heading('4', text='Phone Number')
 tree.column('4', minwidth=0, width=100, stretch=NO)
-
-#tree.bind('<<TreeviewSelect>>', item_selected)
 
 updateTreeView(connObj)
 
