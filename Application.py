@@ -9,6 +9,7 @@ from tkinter.constants import NO
 import dbFunctions as db
 
 def updateTreeView(connObj):
+    tree.delete(*tree.get_children())
     
     users = db.getAllUsers(connObj)
 
@@ -48,6 +49,11 @@ def getFormInformation(connObj):
     #     lbl_Result.grid(row=4, sticky='n', columnspan=2, padx=5, pady=5)
 
     ## Code for updating TreeView
+    if firstName != '':
+        userInfo = lastName, firstName, phoneNumber
+        db.addUser(connObj, userInfo)
+
+        updateTreeView(connObj)
 
 # Start of Program
 
