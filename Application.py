@@ -8,7 +8,16 @@ from tkinter.constants import NO
 
 import dbFunctions as db
 
+def updateTreeView(connObj):
+    
+    users = db.getAllUsers(connObj)
+
+    for user in users:
+        tree.insert('',tk.END, values=(user[0],user[2], user[1], user[3]))
+
+
 def getFormInformation(connObj):
+    
     firstName = ent_FirstName.get()
     lastName = ent_LastName.get()
     phoneNumber = ent_PhoneNumber.get()
@@ -17,25 +26,28 @@ def getFormInformation(connObj):
     ent_LastName.delete(0,tk.END)
     ent_PhoneNumber.delete(0,tk.END)
 
+    ## Code for testing input
     # result = '{} {}\n{}'.format(firstName, lastName, phoneNumber)
-
     # lbl_Result = tk.Label(text=result, master=root)
     # lbl_Result.grid(row=4, sticky='n', columnspan=2, padx=5, pady=5)
 
-    if firstName != '':
-        userInfo = lastName, firstName, phoneNumber
+    ## Code for displaying results as multiline label
+    # if firstName != '':
+    #     userInfo = lastName, firstName, phoneNumber
 
-        db.addUser(connObj, userInfo)
+    #     db.addUser(connObj, userInfo)
 
-        users = db.getAllUsers(connObj)
+    #     users = db.getAllUsers(connObj)
 
-        result = ''
+    #     result = ''
 
-        for user in users:
-            result += '{} {} {}\n'.format(user[2], user[1], user[3])
+    #     for user in users:
+    #         result += '{} {} {}\n'.format(user[2], user[1], user[3])
         
-        lbl_Result = tk.Label(text=result, master=root) 
-        lbl_Result.grid(row=4, sticky='n', columnspan=2, padx=5, pady=5)
+    #     lbl_Result = tk.Label(text=result, master=root) 
+    #     lbl_Result.grid(row=4, sticky='n', columnspan=2, padx=5, pady=5)
+
+    ## Code for updating TreeView
 
 # Start of Program
 
@@ -103,6 +115,8 @@ tree.column('3', minwidth=0, width=120, stretch=NO)
 
 tree.heading('4', text='Phone Number')
 tree.column('4', minwidth=0, width=100, stretch=NO)
+
+updateTreeView(connObj)
 
 tree.grid(row=4, sticky='n', columnspan=2, padx=5, pady=5)
 
